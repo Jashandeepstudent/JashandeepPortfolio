@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me | Jashandeep Singh</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+
+    /* ===== Background Sky + Fog + Sunlight ===== */
+    body {
+        background: linear-gradient(to bottom, #a3d4f7, #d0e7fa);
+        position: relative;
+        filter: brightness(1.15); /* Increase overall brightness */
+    }
+
+    /* Sunlight effect */
+    .sun {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255,255,200,0.8) 0%, rgba(255,255,200,0) 70%);
+        border-radius: 50%;
+        filter: blur(30px);
+        z-index: 0;
+    }
+
+    /* ===== Realistic Clouds ===== */
+    .cloud {
+        position: absolute;
+        width: 200px;
+        height: 120px;
+        background: rgba(255,255,255,0.85);
+        border-radius: 50%;
+        filter: blur(12px);
+        animation: floatCloud linear infinite;
+    }
+    .cloud:nth-child(1) { top: 50px; left: -200px; animation-duration: 80s; }
+    .cloud:nth-child(2) { top: 120px; left: -300px; animation-duration: 100s; }
+    .cloud:nth-child(3) { top: 200px; left: -250px; animation-duration: 90s; }
+
+    @keyframes floatCloud {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(150vw); }
+    }
+
+    /* ===== Ocean ===== */
+    .ocean {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 40%;
+        overflow: hidden;
+        z-index: 1;
+        background: linear-gradient(to top, #1e4a80, #5aa0d0);
+    }
+
+    .wave {
+        position: absolute;
+        width: 200%;
+        height: 100%;
+        background: rgba(255,255,255,0.2);
+        border-radius: 43%;
+        bottom: 0;
+        animation: waveMove 15s linear infinite;
+    }
+
+    .wave1 { animation-duration: 15s; opacity: 0.2; bottom: 0; }
+    .wave2 { animation-duration: 10s; opacity: 0.25; bottom: 10px; }
+    .wave3 { animation-duration: 20s; opacity: 0.15; bottom: 20px; }
+
+    @keyframes waveMove {
+        0% { transform: translateX(0) scaleY(1); }
+        50% { transform: translateX(-25%) scaleY(1.05); }
+        100% { transform: translateX(-50%) scaleY(1); }
+    }
+
+    /* ===== Hero Info ===== */
+    .hero {
+        position: relative;
+        z-index: 2;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        pointer-events: auto;
+    }
+
+    .hero h1 {
+        font-size: 4em;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+    }
+    .hero p {
+        font-size: 1.5em;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+    }
+
+    /* ===== Language Pills ===== */
+    .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .skills span {
+        background: rgba(255,255,255,0.25);
+        backdrop-filter: blur(5px);
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: bold;
+        color: #fff;
+        transition: 0.3s;
+    }
+    .skills span:hover {
+        transform: scale(1.1);
+        background: rgba(255,255,255,0.45);
+    }
+
+    /* ===== Back Button ===== */
+    .back-btn {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        padding: 12px 25px;
+        background: rgba(0,85,255,0.8);
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        z-index: 3;
+    }
+    .back-btn:hover {
+        background: rgba(0,85,255,1);
+        transform: scale(1.05);
+    }
+
+    /* ===== Responsive ===== */
+    @media(max-width:768px){
+        .hero h1 { font-size: 2.5em; }
+        .hero p { font-size: 1.2em; }
+        .skills span { padding: 8px 15px; }
+        .cloud { width: 150px; height: 80px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- Sunlight -->
+<div class="sun"></div>
+
+<!-- Clouds -->
+<div class="cloud"></div>
+<div class="cloud"></div>
+<div class="cloud"></div>
+
+<!-- Back Button -->
+<button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+
+<!-- Hero Info -->
+<div class="hero">
+    <h1>Jashandeep Singh</h1>
+    <p>Web & App Developer</p>
+    <p>Experience: 2+ years</p>
+    <div class="skills">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>Java</span>
+    </div>
+</div>
+
+<!-- Ocean -->
+<div class="ocean">
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+</div>
+
+</body>
+</html>

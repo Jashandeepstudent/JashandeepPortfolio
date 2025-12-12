@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | Jashandeep Singh</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat', sans-serif; }
+    body, html { width:100%; height:100%; overflow:hidden; background:black; }
+
+    /* ===== Stars Background ===== */
+    .stars {
+        position:absolute;
+        width:100%;
+        height:100%;
+        background:black;
+        overflow:hidden;
+        z-index:0;
+        perspective:800px;
+    }
+
+    .star {
+        position:absolute;
+        width:2px;
+        height:2px;
+        background:white;
+        border-radius:50%;
+        opacity:0.8;
+        animation: starFly linear infinite;
+    }
+
+    @keyframes starFly {
+        0% { transform: translateZ(0) scale(1); opacity:1; }
+        100% { transform: translateZ(1000px) scale(10); opacity:0; }
+    }
+
+    /* ===== Yellow Light Beam ===== */
+    .light-travel {
+        position:absolute;
+        top:-50px;
+        left:50%;
+        width:6px;
+        height:150px;
+        background: linear-gradient(to bottom, #fff200, rgba(255,242,0,0) 80%);
+        box-shadow:0 0 20px 5px #fff200;
+        border-radius:50%;
+        animation: travel 5s forwards;
+        z-index:2;
+    }
+
+    @keyframes travel {
+        0%   { transform: translate(-50%,0) rotate(0deg); }
+        10%  { transform: translate(-45%,50px) rotate(-15deg); }
+        20%  { transform: translate(-55%,100px) rotate(15deg); }
+        30%  { transform: translate(-48%,150px) rotate(-10deg); }
+        40%  { transform: translate(-52%,200px) rotate(10deg); }
+        50%  { transform: translate(-50%,250px) rotate(0deg); }
+        60%  { transform: translate(-45%,300px) rotate(-15deg); }
+        70%  { transform: translate(-55%,350px) rotate(15deg); }
+        80%  { transform: translate(-48%,400px) rotate(-10deg); }
+        90%  { transform: translate(-52%,450px) rotate(10deg); }
+        100% { transform: translate(-50%,500px) rotate(0deg); opacity:0; }
+    }
+
+    /* ===== Text Overlay ===== */
+    .intro-text {
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        color:#fff;
+        font-size:2em;
+        text-align:center;
+        z-index:3;
+        animation: fadeOut 5s forwards;
+        text-shadow:0 0 20px #fff200;
+    }
+
+    @keyframes fadeOut {
+        0% { opacity:1; }
+        100% { opacity:0; }
+    }
+
+    /* ===== Projects Bubbles ===== */
+    .projects {
+        visibility: hidden; /* hidden during animation */
+        width: 100%;
+        height: 100%;
+        padding:50px;
+        overflow-y:auto;
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        align-items:center;
+        gap:20px;
+        background: radial-gradient(ellipse at bottom, #000020 0%, #000000 100%);
+        z-index:1;
+    }
+
+    .project-bubble {
+        border-radius:50%;
+        width:220px;
+        height:220px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        padding:20px;
+        font-size:1em;
+        font-weight:bold;
+        color:#fff;
+        box-shadow:0 0 20px rgba(255,255,255,0.2);
+        cursor:pointer;
+        transition:0.3s;
+        position:relative;
+        overflow:hidden;
+        animation: floatBubble 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatBubble {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-15px); }
+    }
+
+    .project-bubble:hover {
+        transform: scale(1.1) translateY(-5px);
+        box-shadow:0 0 40px rgba(255,255,255,0.4);
+    }
+
+    @media(max-width:768px){
+        .project-bubble { width:160px; height:160px; font-size:0.9em; }
+    }
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Yellow Light Beam -->
+<div class="light-travel"></div>
+
+<!-- Intro Text -->
+<div class="intro-text" id="introText">Diving you into the Projects of Jashandeep Singh...</div>
+
+<!-- Projects Bubbles -->
+<div class="projects" id="projectsContent">
+    <div class="project-bubble">Task Management Software</div>
+    <div class="project-bubble">Custom Database AI Chatbot (School)</div>
+    <div class="project-bubble">Study Counter Web App</div>
+    <div class="project-bubble">Custom School Dynamic Website</div>
+    <div class="project-bubble">Local Store Websites</div>
+    <div class="project-bubble">Time Management Web App</div>
+    <div class="project-bubble">Sales Management System</div>
+    <div class="project-bubble">Budget Management Web App</div>
+    <div class="project-bubble">And Many More...</div>
+</div>
+
+<script>
+    // Create stars dynamically
+    const starsContainer = document.getElementById('stars');
+    for(let i=0;i<200;i++){
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = Math.random()*100 + '%';
+        star.style.left = Math.random()*100 + '%';
+        star.style.animationDuration = (Math.random()*10 + 5) + 's';
+        star.style.width = star.style.height = (Math.random()*2 + 1) + 'px';
+        starsContainer.appendChild(star);
+    }
+
+    // Slight POV movement
+    let offset = 0;
+    const moveStars = () => {
+        offset += 0.5;
+        starsContainer.style.transform = `translateY(${offset}px) translateX(${Math.sin(offset/50)*20}px)`;
+        requestAnimationFrame(moveStars);
+    };
+    moveStars();
+
+    // Randomize bubble colors
+    const bubbles = document.querySelectorAll('.project-bubble');
+    const colors = [
+        'linear-gradient(135deg,#ff6ec4,#7873f5)',
+        'linear-gradient(135deg,#f6d365,#fda085)',
+        'linear-gradient(135deg,#84fab0,#8fd3f4)',
+        'linear-gradient(135deg,#a1c4fd,#c2e9fb)',
+        'linear-gradient(135deg,#fccb90,#d57eeb)',
+        'linear-gradient(135deg,#ff9a9e,#fecfef)',
+        'linear-gradient(135deg,#fbc2eb,#a6c1ee)',
+        'linear-gradient(135deg,#fddb92,#d1fdff)',
+        'linear-gradient(135deg,#a18cd1,#fbc2eb)'
+    ];
+    bubbles.forEach((bubble, i) => {
+        bubble.style.background = colors[i % colors.length];
+    });
+
+    // Show projects after 5 seconds
+    setTimeout(() => {
+        document.getElementById('introText').style.display = 'none';
+        document.querySelector('.light-travel').style.display = 'none';
+        document.getElementById('stars').style.display = 'none';
+
+        const projects = document.getElementById('projectsContent');
+        projects.style.visibility = 'visible'; // show only now
+        document.body.style.overflow = 'auto';
+    }, 5000);
+</script>
+
+</body>
+</html>
