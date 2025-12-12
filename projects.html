@@ -34,21 +34,7 @@
         100% { transform: translateZ(1000px) scale(10); opacity:0; }
     }
 
-    /* ===== Yellow Light Beam ===== */
-    .light-travel {
-        position:absolute;
-        top:-50px;
-        left:50%;
-        width:6px;
-        height:150px;
-        background: linear-gradient(to bottom, #fff200, rgba(255,242,0,0) 80%);
-        box-shadow:0 0 20px 5px #fff200;
-        border-radius:50%;
-        animation: travel 5s forwards;
-        z-index:2;
-    }
-
-    @keyframes travel {
+       @keyframes travel {
         0%   { transform: translate(-50%,0) rotate(0deg); }
         10%  { transform: translate(-45%,50px) rotate(-15deg); }
         20%  { transform: translate(-55%,100px) rotate(15deg); }
@@ -81,7 +67,7 @@
         100% { opacity:0; }
     }
 
-    /* ===== Projects Bubbles ===== */
+    /* ===== Projects Section ===== */
     .projects {
         visibility: hidden; /* hidden during animation */
         width: 100%;
@@ -89,12 +75,26 @@
         padding:50px;
         overflow-y:auto;
         display:flex;
+        flex-direction: column;
+        align-items:center;
+        gap:20px;
+        background: radial-gradient(ellipse at bottom, #000010 0%, #000000 100%);
+        z-index:1;
+    }
+
+    .projects h1 {
+        color:#fff;
+        font-size:3em;
+        margin-bottom:30px;
+        text-shadow:0 0 20px #fff200;
+    }
+
+    .bubbles-container {
+        display:flex;
         flex-wrap:wrap;
         justify-content:center;
         align-items:center;
         gap:20px;
-        background: radial-gradient(ellipse at bottom, #000020 0%, #000000 100%);
-        z-index:1;
     }
 
     .project-bubble {
@@ -143,22 +143,26 @@
 <!-- Intro Text -->
 <div class="intro-text" id="introText">Diving you into the Projects of Jashandeep Singh...</div>
 
-<!-- Projects Bubbles -->
+<!-- Projects Section -->
 <div class="projects" id="projectsContent">
-    <div class="project-bubble">Task Management Software</div>
-    <div class="project-bubble">Custom Database AI Chatbot (School)</div>
-    <div class="project-bubble">Study Counter Web App</div>
-    <div class="project-bubble">Custom School Dynamic Website</div>
-    <div class="project-bubble">Local Store Websites</div>
-    <div class="project-bubble">Time Management Web App</div>
-    <div class="project-bubble">Sales Management System</div>
-    <div class="project-bubble">Budget Management Web App</div>
-    <div class="project-bubble">And Many More...</div>
+    <h1>My Projects</h1>
+    <div class="bubbles-container">
+        <div class="project-bubble">Task Management Software</div>
+        <div class="project-bubble">Custom Database AI Chatbot (School)</div>
+        <div class="project-bubble">Study Counter Web App</div>
+        <div class="project-bubble">Custom School Dynamic Website</div>
+        <div class="project-bubble">Local Store Websites</div>
+        <div class="project-bubble">Time Management Web App</div>
+        <div class="project-bubble">Sales Management System</div>
+        <div class="project-bubble">Budget Management Web App</div>
+        <div class="project-bubble">And Many More...</div>
+    </div>
 </div>
 
 <script>
     // Create stars dynamically
     const starsContainer = document.getElementById('stars');
+    const starsArray = [];
     for(let i=0;i<200;i++){
         const star = document.createElement('div');
         star.classList.add('star');
@@ -167,12 +171,14 @@
         star.style.animationDuration = (Math.random()*10 + 5) + 's';
         star.style.width = star.style.height = (Math.random()*2 + 1) + 'px';
         starsContainer.appendChild(star);
+        starsArray.push(star);
     }
 
-    // Slight POV movement
+    // Star movement
     let offset = 0;
+    let speed = 0.5; // default speed
     const moveStars = () => {
-        offset += 0.5;
+        offset += speed;
         starsContainer.style.transform = `translateY(${offset}px) translateX(${Math.sin(offset/50)*20}px)`;
         requestAnimationFrame(moveStars);
     };
@@ -195,16 +201,21 @@
         bubble.style.background = colors[i % colors.length];
     });
 
-    // Show projects after 5 seconds
+    // Increase star speed during animation
+    speed = 3; // faster during intro
     setTimeout(() => {
+        // Hide intro elements
         document.getElementById('introText').style.display = 'none';
         document.querySelector('.light-travel').style.display = 'none';
-        document.getElementById('stars').style.display = 'none';
 
+        // Show projects
         const projects = document.getElementById('projectsContent');
-        projects.style.visibility = 'visible'; // show only now
+        projects.style.visibility = 'visible';
         document.body.style.overflow = 'auto';
-    }, 5000);
+
+        // Slow down stars for background
+        speed = 0.5;
+    }, 3000);
 </script>
 
 </body>
